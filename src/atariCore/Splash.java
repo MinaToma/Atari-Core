@@ -1,7 +1,5 @@
 package atariCore;
 
-import org.w3c.dom.html.HTMLLegendElement;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -43,7 +41,7 @@ public class Splash {
     /**
      * Returns to welcome screen.
      */
-    protected JButton backButton;
+    protected JButton exitButton;
 
     /**
      * Parameterised constructor which sets splash title and main used font.
@@ -64,7 +62,7 @@ public class Splash {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(getImage(splashBackgroundImagePath, 1), 0, 0, null);
+                g.drawImage(FileManager.loadImage(splashBackgroundImagePath, 1), 0, 0, null);
             }
         };
 
@@ -78,6 +76,10 @@ public class Splash {
         setLeaderboardsButton(xStart, (yStart += bOffset), Helper.btnDim);
         setSettingsButton(xStart, (yStart += bOffset), Helper.btnDim);
         setBackButton(xStart, (yStart += bOffset), Helper.btnDim);
+
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
 
         frame.getContentPane().add(panel);
         frame.setVisible(true);
@@ -135,11 +137,6 @@ public class Splash {
      * @param dim Dimension of the button.
      */
     protected void setBackButton(int x, int y, Dimension dim) {
-        backButton = Helper.buttonHelper("Back", x, y, dim);
-    }
-
-    public static void main(String ...args) {
-        Helper.Load();
-        new Splash("atariCore" , "joystix monospace.ttf");
+        exitButton = Helper.buttonHelper("Exit", x, y, dim);
     }
 }
